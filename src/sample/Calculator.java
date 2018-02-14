@@ -8,11 +8,6 @@ public class Calculator {
         return fResultValue = 0;
     }
 
-    public double backspace() {
-        System.out.println("Button Return was pressed.");
-        return 0;
-    }
-
     private double plus(double val) {
         System.out.println("Button plus was pressed.");
         return fResultValue += val;
