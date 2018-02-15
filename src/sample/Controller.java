@@ -10,7 +10,7 @@ public class Controller {
     @FXML
     private TextField tfDispley;
     private Calculator calc = new Calculator();
-    private Displey displey = new Displey();
+    private Display displey = new Display();
 
     public void onActionKeyPress(ActionEvent actionEvent) {
         processAction((Button) actionEvent.getSource());

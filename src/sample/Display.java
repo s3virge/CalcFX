@@ -2,15 +2,15 @@ package sample;
 
 import javafx.scene.control.TextField;
 
-public class Displey {
+public class Display {
     private String digits;
     private int numberOfDigits; //сколько разрядов отображается на дисплее
-    private TextField displey;  //ссылка на объект поля ввода
+    private TextField display;  //ссылка на объект поля ввода
 
-    public void initialize(TextField displey) {
-        this.digits = displey.getText();
+    public void initialize(TextField display) {
+        this.digits = display.getText();
         this.numberOfDigits = 7;
-        this.displey = displey;
+        this.display = display;
     }
 
     public void append(String append) {
@@ -24,16 +24,25 @@ public class Displey {
             digits += append;
         }
         //устанавливаем новое значение в поле ввода
-        displey.setText(digits);
+        display.setText(digits);
     }
 
     public void backspace() {
         //удалить последнюю цифру
+        String withoutTheLast = digits.substring(0, digits.length()-1);
+        //если убираем последний символ
+        if (withoutTheLast.equals("")) {
+            //то вывести на дисплей 0
+            withoutTheLast = "0";
+        }
+
+        digits = withoutTheLast;
         //показать новое значение
+        display.setText(digits);
     }
 
     public void clean() {
         digits = "0";
-        displey.setText(digits);
+        display.setText(digits);
     }
 }
