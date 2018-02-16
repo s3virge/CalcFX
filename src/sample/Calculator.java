@@ -4,26 +4,27 @@ import javafx.scene.control.TextField;
 
 public class Calculator {
 
-    private String displayValue; //
-    private int numberOfDigits; //сколько разрядов отображается на дисплее
+    private String strDisplayValue; //
+    //private int numberOfDigits; //сколько разрядов отображается на дисплее
     private TextField display;  //ссылка на объект поля ввода
-    private double resultValue = 0;
+    private double dResultValue = 0;
+    private String strLastAction = "";
 
     public void initialize(TextField display) {
-        this.displayValue = display.getText();
-        this.numberOfDigits = 7;
+        this.strDisplayValue = display.getText();
+        //this.numberOfDigits = 7;
         this.display = display;
     }
 
     public void append(String append) {
         //если в поле ввода сейчас цифра "0" или все разряды дисплея уже заполнены
-        if (displayValue.equals("0")) {
+        if (strDisplayValue.equals("0")) {
             //то вместо 0 выводим цифру append
-            displayValue = append;
+            strDisplayValue = append;
         }
         else {
             //иначе прибавляем к значению из поля ввода цифру append
-            displayValue += append;
+            strDisplayValue += append;
         }
         //показать новое значение в поле ввода
         showValueOnDisplay();
@@ -31,59 +32,71 @@ public class Calculator {
 
     public void backspace() {
         //удалить последнюю цифру
-        String withoutTheLast = displayValue.substring(0, displayValue.length()-1);
+        String withoutTheLast = strDisplayValue.substring(0, strDisplayValue.length()-1);
         //если убираем последний символ
         if (withoutTheLast.equals("")) {
             //то вывести на дисплей 0
             withoutTheLast = "0";
         }
 
-        displayValue = withoutTheLast;
+        strDisplayValue = withoutTheLast;
         //показать новое значение
         showValueOnDisplay();
     }
 
     public void clean() {
-        displayValue = "0";
-        resultValue = 0;
+        strDisplayValue = "0";
+        dResultValue = 0;
+        strLastAction = "";
         showValueOnDisplay();
     }
 
     public void plus() {
-        resultValue += Double.valueOf(displayValue);
-        System.out.printf("displayValue => %s; resultValue => %f \n", displayValue, resultValue);
-        displayValue = "0";
+        dResultValue += Double.valueOf(strDisplayValue);
+        System.out.printf("strDisplayValue => %s; dResultValue => %f \n", strDisplayValue, dResultValue);
+        strDisplayValue = "0";
+        strLastAction = "+";
         showValueOnDisplay();
     }
 
     private double minus(double val){
-        return resultValue -= val;
+        strLastAction = "-";
+        return dResultValue -= val;
     }
 
     private double multiply(double val) {
-        return resultValue *= val;
+        strLastAction = "*";
+        return dResultValue *= val;
     }
 
     private double divide(double val) {
-        return resultValue /= val;
+        strLastAction = "/";
+        return dResultValue /= val;
     }
 
     public void equals() {
-        //вывести на дисплей значение resultValue
-        display.setText(String.valueOf(resultValue));
+        switch (strLastAction) {
+            case "+":
+                dResultValue += Double.valueOf(strDisplayValue);
+                break;
+        }
+
+        //вывести на дисплей значение dResultValue
+        strDisplayValue = String.valueOf(dResultValue);
+        showValueOnDisplay();
     }
 
     public void dot() {
         //точка может быть только одна
-        if (displayValue.contains(".")) {
+        if (strDisplayValue.contains(".")) {
             return;
         }
 
-        displayValue += ".";
+        strDisplayValue += ".";
         showValueOnDisplay();
     }
 
     private void showValueOnDisplay() {
-        display.setText(displayValue);
+        display.setText(strDisplayValue);
     }
 }
