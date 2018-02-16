@@ -84,6 +84,8 @@ public class Calculator {
         //вывести на дисплей значение dResultValue
         strDisplayValue = String.valueOf(dResultValue);
         showValueOnDisplay();
+
+        //todo после equals() plus() прибавляет старое значение
     }
 
     public void dot() {
