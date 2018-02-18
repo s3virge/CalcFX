@@ -53,7 +53,9 @@ public class Calculator {
 
     public void plus() {
         dResultValue += Double.valueOf(strDisplayValue);
-        System.out.printf("strDisplayValue => %s; dResultValue => %f \n", strDisplayValue, dResultValue);
+
+        System.out.printf("plus(); strDisplayValue => %s; dResultValue => %f \n", strDisplayValue, dResultValue);
+
         strDisplayValue = "0";
         strLastAction = "+";
         showValueOnDisplay();
@@ -75,17 +77,22 @@ public class Calculator {
     }
 
     public void equals() {
+        if (strLastAction.equals("="))
+            return;
+
         switch (strLastAction) {
             case "+":
                 dResultValue += Double.valueOf(strDisplayValue);
                 break;
         }
 
+        System.out.printf("equals(); strDisplayValue => %s; dResultValue => %f \n", strDisplayValue, dResultValue);
+
         //вывести на дисплей значение dResultValue
         strDisplayValue = String.valueOf(dResultValue);
         showValueOnDisplay();
-
-        //todo после equals() plus() прибавляет старое значение
+        strLastAction = "=";
+        dResultValue = 0;
     }
 
     public void dot() {
@@ -99,6 +106,26 @@ public class Calculator {
     }
 
     private void showValueOnDisplay() {
+        if (getNumberOfDigitsAfterDot() != 0) {
+            //то на экране нужно показывать значения как целочисленные (без ".0")
+            //todo показать на экране число без точки и нуля
+            return;
+        }
         display.setText(strDisplayValue);
+    }
+
+    private int getNumberOfDigitsAfterDot() {
+        int numberOfDigits = 0;
+        if (strDisplayValue.contains(".")) {
+            int index = strDisplayValue.indexOf('.');
+            String afterDot = strDisplayValue.substring(index + 1);
+            numberOfDigits = afterDot.length();
+
+            //если после запятой одна цифра и эта цифра ноль
+            if (numberOfDigits == 1 && afterDot.equals("0")) {
+                numberOfDigits = 0;
+            }
+        }
+        return numberOfDigits;
     }
 }
