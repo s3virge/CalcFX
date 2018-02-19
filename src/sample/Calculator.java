@@ -17,8 +17,12 @@ public class Calculator {
     }
 
     public void append(String append) {
+//        if (strLastAction.equals("=")) {
+//            strDisplayValue = append;
+//        }
+
         //если в поле ввода сейчас цифра "0" или все разряды дисплея уже заполнены
-        if (strDisplayValue.equals("0")) {
+        if (strDisplayValue.equals("0") ) {
             //то вместо 0 выводим цифру append
             strDisplayValue = append;
         }
@@ -27,7 +31,7 @@ public class Calculator {
             strDisplayValue += append;
         }
         //показать новое значение в поле ввода
-        showValueOnDisplay();
+        display.setText(strDisplayValue);
     }
 
     public void backspace() {
@@ -41,24 +45,25 @@ public class Calculator {
 
         strDisplayValue = withoutTheLast;
         //показать новое значение
-        showValueOnDisplay();
+        display.setText(strDisplayValue);
     }
 
     public void clean() {
         strDisplayValue = "0";
         dResultValue = 0;
         strLastAction = "";
-        showValueOnDisplay();
+        display.setText(strDisplayValue);
     }
 
     public void plus() {
+        strDisplayValue = display.getText();
         dResultValue += Double.valueOf(strDisplayValue);
 
         System.out.printf("plus(); strDisplayValue => %s; dResultValue => %f \n", strDisplayValue, dResultValue);
 
         strDisplayValue = "0";
         strLastAction = "+";
-        showValueOnDisplay();
+        display.setText(strDisplayValue);
     }
 
     private double minus(double val){
@@ -91,8 +96,10 @@ public class Calculator {
         //вывести на дисплей значение dResultValue
         strDisplayValue = String.valueOf(dResultValue);
         showValueOnDisplay();
+
         strLastAction = "=";
         dResultValue = 0;
+        strDisplayValue = "0";
     }
 
     public void dot() {
@@ -102,14 +109,13 @@ public class Calculator {
         }
 
         strDisplayValue += ".";
-        showValueOnDisplay();
+        display.setText(strDisplayValue);
     }
 
     private void showValueOnDisplay() {
-        if (getNumberOfDigitsAfterDot() != 0) {
-            //то на экране нужно показывать значения как целочисленные (без ".0")
-            //todo показать на экране число без точки и нуля
-            return;
+        if (getNumberOfDigitsAfterDot() == 0) {
+            //показать на экране число без точки и нуля
+            strDisplayValue = strDisplayValue.substring(0, strDisplayValue.lastIndexOf("."));
         }
         display.setText(strDisplayValue);
     }
