@@ -17,10 +17,6 @@ public class Calculator {
     }
 
     public void append(String append) {
-//        if (strLastAction.equals("=")) {
-//            strDisplayValue = append;
-//        }
-
         //если в поле ввода сейчас цифра "0" или все разряды дисплея уже заполнены
         if (strDisplayValue.equals("0") ) {
             //то вместо 0 выводим цифру append
@@ -59,16 +55,23 @@ public class Calculator {
         strDisplayValue = display.getText();
         dResultValue += Double.valueOf(strDisplayValue);
 
-        System.out.printf("plus(); strDisplayValue => %s; dResultValue => %f \n", strDisplayValue, dResultValue);
+        System.out.printf("plus(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
 
-        strDisplayValue = "0";
         strLastAction = "+";
+        strDisplayValue = "0";
         display.setText(strDisplayValue);
     }
 
-    private double minus(double val){
+    public void minus(){
+        //todo implements minus method
+        strDisplayValue = display.getText();
+        dResultValue -= Double.valueOf(strDisplayValue);
+
+        System.out.printf("minus(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
         strLastAction = "-";
-        return dResultValue -= val;
+        strDisplayValue = "0";
+        display.setText(strDisplayValue);
+
     }
 
     private double multiply(double val) {
@@ -82,6 +85,8 @@ public class Calculator {
     }
 
     public void equals() {
+        //при каждом нажатии на кнопку с цифрой
+        //она записывается в strDisplayValue и выводится на дисплей калькулятора
         if (strLastAction.equals("="))
             return;
 
@@ -89,9 +94,13 @@ public class Calculator {
             case "+":
                 dResultValue += Double.valueOf(strDisplayValue);
                 break;
+
+            case "-":
+                dResultValue -= Double.valueOf(strDisplayValue);
+                break;
         }
 
-        System.out.printf("equals(); strDisplayValue => %s; dResultValue => %f \n", strDisplayValue, dResultValue);
+        System.out.printf("equals(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
 
         //вывести на дисплей значение dResultValue
         strDisplayValue = String.valueOf(dResultValue);

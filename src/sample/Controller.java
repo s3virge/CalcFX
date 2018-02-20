@@ -82,6 +82,10 @@ public class Controller {
                 calc.plus();
                 break;
 
+            case "btnMinus":
+                calc.minus();
+                break;
+
             case "btnDot":
                 calc.dot();
                 break;
