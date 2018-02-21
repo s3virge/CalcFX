@@ -64,14 +64,23 @@ public class Calculator {
 
     public void minus(){
         //todo implements minus method
+        //получить введенные значения с дисплея
         strDisplayValue = display.getText();
-        dResultValue -= Double.valueOf(strDisplayValue);
+        //если вводим данные первый раз. dResultVale = 0;
+        //а тут выполняется тут уже выполняется операция вычитания. 0 - 3 = -3
+        //strLastAction = "";
+        if (strLastAction.equals("")) {
+            dResultValue = Double.valueOf(strDisplayValue);
+        }
+        else {
+            dResultValue -= Double.valueOf(strDisplayValue);
+        }
 
         System.out.printf("minus(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
+
         strLastAction = "-";
         strDisplayValue = "0";
         display.setText(strDisplayValue);
-
     }
 
     private double multiply(double val) {
