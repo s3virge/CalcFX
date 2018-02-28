@@ -67,16 +67,14 @@ public class Calculator {
         //получить введенные значения с дисплея
         strDisplayValue = display.getText();
         //если вводим данные первый раз. dResultVale = 0;
-        //а тут выполняется тут уже выполняется операция вычитания. 0 - 3 = -3
-        //strLastAction = "";
-        if (strLastAction.equals("")) {
+        if (strLastAction.equals("") || strLastAction.equals("=")) {
             dResultValue = Double.valueOf(strDisplayValue);
         }
         else {
             dResultValue -= Double.valueOf(strDisplayValue);
         }
 
-        System.out.printf("minus(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
+        //System.out.printf("minus(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
 
         strLastAction = "-";
         strDisplayValue = "0";
