@@ -63,7 +63,6 @@ public class Calculator {
     }
 
     public void minus(){
-        //todo implements minus method
         //получить введенные значения с дисплея
         strDisplayValue = display.getText();
         //если вводим данные первый раз. dResultVale = 0;
@@ -74,21 +73,47 @@ public class Calculator {
             dResultValue -= Double.valueOf(strDisplayValue);
         }
 
-        //System.out.printf("minus(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
+        System.out.printf("minus(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
 
         strLastAction = "-";
         strDisplayValue = "0";
         display.setText(strDisplayValue);
     }
 
-    private double multiply(double val) {
+    public void multiply() {
+        //получить введенные значения с дисплея
+        strDisplayValue = display.getText();
+        //если вводим данные первый раз. dResultVale = 0;
+        if (strLastAction.equals("") || strLastAction.equals("=")) {
+            dResultValue = Double.valueOf(strDisplayValue);
+        }
+        else {
+            dResultValue *= Double.valueOf(strDisplayValue);
+        }
+
+        System.out.printf("multiply(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
+
         strLastAction = "*";
-        return dResultValue *= val;
+        strDisplayValue = "0";
+        display.setText(strDisplayValue);
     }
 
-    private double divide(double val) {
+    public void divide() {
+        //получить введенные значения с дисплея
+        strDisplayValue = display.getText();
+        //если вводим данные первый раз. dResultVale = 0;
+        if (strLastAction.equals("") || strLastAction.equals("=")) {
+            dResultValue = Double.valueOf(strDisplayValue);
+        }
+        else {
+            dResultValue /= Double.valueOf(strDisplayValue);
+        }
+
+        System.out.printf("divide(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
+
         strLastAction = "/";
-        return dResultValue /= val;
+        strDisplayValue = "0";
+        display.setText(strDisplayValue);
     }
 
     public void equals() {
@@ -104,6 +129,14 @@ public class Calculator {
 
             case "-":
                 dResultValue -= Double.valueOf(strDisplayValue);
+                break;
+
+            case "*":
+                dResultValue *= Double.valueOf(strDisplayValue);
+                break;
+
+            case "/":
+                dResultValue /= Double.valueOf(strDisplayValue);
                 break;
         }
 

@@ -93,6 +93,14 @@ public class Controller {
             case "btnEquals":
                 calc.equals();
                 break;
+
+            case "btnDivide":
+                calc.divide();
+                break;
+
+            case "btnMultiply":
+                calc.multiply();
+                break;
         }
     }
 }
