@@ -78,6 +78,10 @@ public class Controller {
                 calc.backspace();
                 break;
 
+            case "btnDot":
+                calc.dot();
+                break;
+
             case "btnPlus":
                 calc.plus();
                 break;
@@ -86,20 +90,16 @@ public class Controller {
                 calc.minus();
                 break;
 
-            case "btnDot":
-                calc.dot();
-                break;
-
-            case "btnEquals":
-                calc.equals();
-                break;
-
             case "btnDivide":
                 calc.divide();
                 break;
 
             case "btnMultiply":
                 calc.multiply();
+                break;
+
+            case "btnEquals":
+                calc.equals();
                 break;
         }
     }

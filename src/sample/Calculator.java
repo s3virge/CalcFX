@@ -51,33 +51,42 @@ public class Calculator {
         display.setText(strDisplayValue);
     }
 
+    /**
+     * 1 + 1 + 1 + 1 + 1 = 5
+     * 5 - 1 - 1 - 1 - 1 = 0
+     * 5+1=6-1
+     * 5-1=4-1
+     * 1*1*1*1*1=1
+     * 1 - 1 + 1 * 1 / 1 = 1*/
+
     public void plus() {
-        strDisplayValue = display.getText();
-        dResultValue += Double.valueOf(strDisplayValue);
-
-        System.out.printf("plus(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
-
+        double lcdValue = Double.valueOf(display.getText());
+        //если кнопку + нажали впервые
+        if (strLastAction == "") {
+            //то получить введенные значения с дисплея и сохратинть их в dResult
+            dResultValue = lcdValue;
+        }
+        else {
+            dResultValue += lcdValue;
+        }
         strLastAction = "+";
         strDisplayValue = "0";
-        display.setText(strDisplayValue);
+        display.setText("0");
     }
 
     public void minus(){
-        //получить введенные значения с дисплея
-        strDisplayValue = display.getText();
-        //если вводим данные первый раз. dResultVale = 0;
-        if (strLastAction.equals("") || strLastAction.equals("=")) {
-            dResultValue = Double.valueOf(strDisplayValue);
+        double lcdValue = Double.valueOf(display.getText());
+        //если кнопку - нажали впервые или нажимали =
+        if (strLastAction == "" || strLastAction == "=") {
+            //то получить введенные значения с дисплея и сохратинть их в dResult
+            dResultValue = lcdValue;
         }
         else {
-            dResultValue -= Double.valueOf(strDisplayValue);
+            dResultValue -= lcdValue;
         }
-
-        System.out.printf("minus(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
-
         strLastAction = "-";
         strDisplayValue = "0";
-        display.setText(strDisplayValue);
+        display.setText("0");
     }
 
     public void multiply() {
@@ -182,5 +191,24 @@ public class Calculator {
             }
         }
         return numberOfDigits;
+    }
+
+    public void toDoLastAction() {
+        //get entered numbers from display
+        //strDisplayValue = display.getText();
+
+        switch(strLastAction) {
+            case "-": dResultValue -= Double.valueOf(strDisplayValue);
+                break;
+            case "+": dResultValue += Double.valueOf(strDisplayValue);
+                break;
+            case "*": dResultValue *= Double.valueOf(strDisplayValue);
+                break;
+            case "/": dResultValue /= Double.valueOf(strDisplayValue);
+                break;
+            case "=": this.equals();
+                break;
+            default: dResultValue = Double.valueOf(strDisplayValue);
+        }
     }
 }
