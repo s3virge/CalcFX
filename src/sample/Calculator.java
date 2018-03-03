@@ -4,51 +4,51 @@ import javafx.scene.control.TextField;
 
 public class Calculator {
 
-    private String strDisplayValue; //
+    private String sValueOnDisplay; //
     //private int numberOfDigits; //сколько разрядов отображается на дисплее
     private TextField display;  //ссылка на объект поля ввода
-    private double dResultValue = 0;
-    private String strLastAction = "";
+    private double dResult = 0;
+    private String sLastAction = "";
 
     public void initialize(TextField display) {
-        this.strDisplayValue = display.getText();
+        this.sValueOnDisplay = display.getText();
         //this.numberOfDigits = 7;
         this.display = display;
     }
 
     public void append(String append) {
         //если в поле ввода сейчас цифра "0" или все разряды дисплея уже заполнены
-        if (strDisplayValue.equals("0") ) {
+        if (sValueOnDisplay.equals("0") ) {
             //то вместо 0 выводим цифру append
-            strDisplayValue = append;
+            sValueOnDisplay = append;
         }
         else {
             //иначе прибавляем к значению из поля ввода цифру append
-            strDisplayValue += append;
+            sValueOnDisplay += append;
         }
         //показать новое значение в поле ввода
-        display.setText(strDisplayValue);
+        display.setText(sValueOnDisplay);
     }
 
     public void backspace() {
         //удалить последнюю цифру
-        String withoutTheLast = strDisplayValue.substring(0, strDisplayValue.length()-1);
+        String withoutTheLast = sValueOnDisplay.substring(0, sValueOnDisplay.length()-1);
         //если убираем последний символ
         if (withoutTheLast.equals("")) {
             //то вывести на дисплей 0
             withoutTheLast = "0";
         }
 
-        strDisplayValue = withoutTheLast;
+        sValueOnDisplay = withoutTheLast;
         //показать новое значение
-        display.setText(strDisplayValue);
+        display.setText(sValueOnDisplay);
     }
 
     public void clean() {
-        strDisplayValue = "0";
-        dResultValue = 0;
-        strLastAction = "";
-        display.setText(strDisplayValue);
+        sValueOnDisplay = "0";
+        dResult = 0;
+        sLastAction = "";
+        display.setText(sValueOnDisplay);
     }
 
     /**
@@ -60,129 +60,116 @@ public class Calculator {
      * 1 - 1 + 1 * 1 / 1 = 1*/
 
     public void plus() {
-        double lcdValue = Double.valueOf(display.getText());
-        //если кнопку + нажали впервые
-        if (strLastAction == "") {
-            //то получить введенные значения с дисплея и сохратинть их в dResult
-            dResultValue = lcdValue;
-        }
-        else {
-            dResultValue += lcdValue;
-        }
-        strLastAction = "+";
-        strDisplayValue = "0";
-        display.setText("0");
+        toDoLastAction();
+
+        sLastAction = "+";
+        sValueOnDisplay = "0";
+        display.setText(sValueOnDisplay);
     }
 
     public void minus(){
-        double lcdValue = Double.valueOf(display.getText());
-        //если кнопку - нажали впервые или нажимали =
-        if (strLastAction == "" || strLastAction == "=") {
-            //то получить введенные значения с дисплея и сохратинть их в dResult
-            dResultValue = lcdValue;
-        }
-        else {
-            dResultValue -= lcdValue;
-        }
-        strLastAction = "-";
-        strDisplayValue = "0";
-        display.setText("0");
+        toDoLastAction();
+
+        sLastAction = "-";
+        sValueOnDisplay = "0";
+        display.setText(sValueOnDisplay);
     }
 
     public void multiply() {
+        //todo multiply method
         //получить введенные значения с дисплея
-        strDisplayValue = display.getText();
+        sValueOnDisplay = display.getText();
         //если вводим данные первый раз. dResultVale = 0;
-        if (strLastAction.equals("") || strLastAction.equals("=")) {
-            dResultValue = Double.valueOf(strDisplayValue);
+        if (sLastAction.equals("") || sLastAction.equals("=")) {
+            dResult = Double.valueOf(sValueOnDisplay);
         }
         else {
-            dResultValue *= Double.valueOf(strDisplayValue);
+            dResult *= Double.valueOf(sValueOnDisplay);
         }
 
-        System.out.printf("multiply(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
+        System.out.printf("multiply(); sValueOnDisplay = %s; dResult = %f \n", sValueOnDisplay, dResult);
 
-        strLastAction = "*";
-        strDisplayValue = "0";
-        display.setText(strDisplayValue);
+        sLastAction = "*";
+        sValueOnDisplay = "0";
+        display.setText(sValueOnDisplay);
     }
 
     public void divide() {
         //получить введенные значения с дисплея
-        strDisplayValue = display.getText();
+        sValueOnDisplay = display.getText();
         //если вводим данные первый раз. dResultVale = 0;
-        if (strLastAction.equals("") || strLastAction.equals("=")) {
-            dResultValue = Double.valueOf(strDisplayValue);
+        if (sLastAction.equals("") || sLastAction.equals("=")) {
+            dResult = Double.valueOf(sValueOnDisplay);
         }
         else {
-            dResultValue /= Double.valueOf(strDisplayValue);
+            dResult /= Double.valueOf(sValueOnDisplay);
         }
 
-        System.out.printf("divide(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
+        System.out.printf("divide(); sValueOnDisplay = %s; dResult = %f \n", sValueOnDisplay, dResult);
 
-        strLastAction = "/";
-        strDisplayValue = "0";
-        display.setText(strDisplayValue);
+        sLastAction = "/";
+        sValueOnDisplay = "0";
+        display.setText(sValueOnDisplay);
     }
 
     public void equals() {
         //при каждом нажатии на кнопку с цифрой
-        //она записывается в strDisplayValue и выводится на дисплей калькулятора
-        if (strLastAction.equals("="))
+        //она записывается в sValueOnDisplay и выводится на дисплей калькулятора
+        if (sLastAction.equals("="))
             return;
 
-        switch (strLastAction) {
+        switch (sLastAction) {
             case "+":
-                dResultValue += Double.valueOf(strDisplayValue);
+                dResult += Double.valueOf(sValueOnDisplay);
                 break;
 
             case "-":
-                dResultValue -= Double.valueOf(strDisplayValue);
+                dResult -= Double.valueOf(sValueOnDisplay);
                 break;
 
             case "*":
-                dResultValue *= Double.valueOf(strDisplayValue);
+                dResult *= Double.valueOf(sValueOnDisplay);
                 break;
 
             case "/":
-                dResultValue /= Double.valueOf(strDisplayValue);
+                dResult /= Double.valueOf(sValueOnDisplay);
                 break;
         }
 
-        System.out.printf("equals(); strDisplayValue = %s; dResultValue = %f \n", strDisplayValue, dResultValue);
+        System.out.printf("equals(); sValueOnDisplay = %s; dResult = %f \n", sValueOnDisplay, dResult);
 
-        //вывести на дисплей значение dResultValue
-        strDisplayValue = String.valueOf(dResultValue);
+        //вывести на дисплей значение dResult
+        sValueOnDisplay = String.valueOf(dResult);
         showValueOnDisplay();
 
-        strLastAction = "=";
-        dResultValue = 0;
-        strDisplayValue = "0";
+        sLastAction = "=";
+       /* dResult = 0;
+        sValueOnDisplay = "0";*/
     }
 
     public void dot() {
         //точка может быть только одна
-        if (strDisplayValue.contains(".")) {
+        if (sValueOnDisplay.contains(".")) {
             return;
         }
 
-        strDisplayValue += ".";
-        display.setText(strDisplayValue);
+        sValueOnDisplay += ".";
+        display.setText(sValueOnDisplay);
     }
 
     private void showValueOnDisplay() {
         if (getNumberOfDigitsAfterDot() == 0) {
             //показать на экране число без точки и нуля
-            strDisplayValue = strDisplayValue.substring(0, strDisplayValue.lastIndexOf("."));
+            sValueOnDisplay = sValueOnDisplay.substring(0, sValueOnDisplay.lastIndexOf("."));
         }
-        display.setText(strDisplayValue);
+        display.setText(sValueOnDisplay);
     }
 
     private int getNumberOfDigitsAfterDot() {
         int numberOfDigits = 0;
-        if (strDisplayValue.contains(".")) {
-            int index = strDisplayValue.indexOf('.');
-            String afterDot = strDisplayValue.substring(index + 1);
+        if (sValueOnDisplay.contains(".")) {
+            int index = sValueOnDisplay.indexOf('.');
+            String afterDot = sValueOnDisplay.substring(index + 1);
             numberOfDigits = afterDot.length();
 
             //если после запятой одна цифра и эта цифра ноль
@@ -194,21 +181,18 @@ public class Calculator {
     }
 
     public void toDoLastAction() {
-        //get entered numbers from display
-        //strDisplayValue = display.getText();
-
-        switch(strLastAction) {
-            case "-": dResultValue -= Double.valueOf(strDisplayValue);
+        switch(sLastAction) {
+            case "-": dResult -= Double.valueOf(sValueOnDisplay);
                 break;
-            case "+": dResultValue += Double.valueOf(strDisplayValue);
+            case "+": dResult += Double.valueOf(sValueOnDisplay);
                 break;
-            case "*": dResultValue *= Double.valueOf(strDisplayValue);
+            case "*": dResult *= Double.valueOf(sValueOnDisplay);
                 break;
-            case "/": dResultValue /= Double.valueOf(strDisplayValue);
+            case "/": dResult /= Double.valueOf(sValueOnDisplay);
                 break;
-            case "=": this.equals();
-                break;
-            default: dResultValue = Double.valueOf(strDisplayValue);
+            /*case "=": this.equals();
+                break;*/
+            default: dResult = Double.valueOf(sValueOnDisplay);
         }
     }
 }
