@@ -8,8 +8,12 @@ import javafx.scene.control.TextField;
 public class Controller {
 
     @FXML
-    private TextField tfDispley;
+    private TextField tfDisplay;
     private Calculator calc = new Calculator();
+
+    /*Controller(){
+        calc = new Calculator();
+    }*/
 
     public void onActionKeyPress(ActionEvent actionEvent) {
         processAction((Button) actionEvent.getSource());
@@ -21,7 +25,7 @@ public class Controller {
 
     @FXML
     private void initialize() {
-        calc.initialize(tfDispley);
+        calc.initialize(tfDisplay);
     }
 
     private void processDigit(Button source) {
@@ -83,24 +87,35 @@ public class Controller {
                 break;
 
             case "btnPlus":
-                calc.plus();
+                calc.operation("+");
                 break;
 
             case "btnMinus":
-                calc.minus();
+                calc.operation("-");
                 break;
 
             case "btnDivide":
-                calc.divide();
+                calc.operation("/");
                 break;
 
             case "btnMultiply":
-                calc.multiply();
+                calc.operation("*");
                 break;
 
             case "btnEquals":
                 calc.equals();
                 break;
+        }
+    }
+
+    public void keyPressed(String key){
+        //если была нажата клавиша цифра
+        if(key.matches("\\d")){ // \\d   –  цифровой символ
+            calc.append(key);
+        } //если была нажата клавиша операции - + * /
+        else if (key.matches("=\\+|\\-|\\*|\\/")){
+            //todo сделать регуляное выражение которое будет отлавилвать *+-/=
+            calc.operation(key);
         }
     }
 }

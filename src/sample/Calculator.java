@@ -59,55 +59,10 @@ public class Calculator {
      * 1*1*1*1*1=1
      * 1 - 1 + 1 * 1 / 1 = 1*/
 
-    public void plus() {
+    public void operation(String op) {
         toDoLastAction();
 
-        sLastAction = "+";
-        sValueOnDisplay = "0";
-        display.setText(sValueOnDisplay);
-    }
-
-    public void minus(){
-        toDoLastAction();
-
-        sLastAction = "-";
-        sValueOnDisplay = "0";
-        display.setText(sValueOnDisplay);
-    }
-
-    public void multiply() {
-        //todo multiply method
-        //получить введенные значения с дисплея
-        sValueOnDisplay = display.getText();
-        //если вводим данные первый раз. dResultVale = 0;
-        if (sLastAction.equals("") || sLastAction.equals("=")) {
-            dResult = Double.valueOf(sValueOnDisplay);
-        }
-        else {
-            dResult *= Double.valueOf(sValueOnDisplay);
-        }
-
-        System.out.printf("multiply(); sValueOnDisplay = %s; dResult = %f \n", sValueOnDisplay, dResult);
-
-        sLastAction = "*";
-        sValueOnDisplay = "0";
-        display.setText(sValueOnDisplay);
-    }
-
-    public void divide() {
-        //получить введенные значения с дисплея
-        sValueOnDisplay = display.getText();
-        //если вводим данные первый раз. dResultVale = 0;
-        if (sLastAction.equals("") || sLastAction.equals("=")) {
-            dResult = Double.valueOf(sValueOnDisplay);
-        }
-        else {
-            dResult /= Double.valueOf(sValueOnDisplay);
-        }
-
-        System.out.printf("divide(); sValueOnDisplay = %s; dResult = %f \n", sValueOnDisplay, dResult);
-
-        sLastAction = "/";
+        sLastAction = op;
         sValueOnDisplay = "0";
         display.setText(sValueOnDisplay);
     }
@@ -118,23 +73,7 @@ public class Calculator {
         if (sLastAction.equals("="))
             return;
 
-        switch (sLastAction) {
-            case "+":
-                dResult += Double.valueOf(sValueOnDisplay);
-                break;
-
-            case "-":
-                dResult -= Double.valueOf(sValueOnDisplay);
-                break;
-
-            case "*":
-                dResult *= Double.valueOf(sValueOnDisplay);
-                break;
-
-            case "/":
-                dResult /= Double.valueOf(sValueOnDisplay);
-                break;
-        }
+        toDoLastAction();
 
         System.out.printf("equals(); sValueOnDisplay = %s; dResult = %f \n", sValueOnDisplay, dResult);
 
@@ -143,8 +82,6 @@ public class Calculator {
         showValueOnDisplay();
 
         sLastAction = "=";
-       /* dResult = 0;
-        sValueOnDisplay = "0";*/
     }
 
     public void dot() {
