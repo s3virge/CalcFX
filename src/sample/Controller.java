@@ -110,11 +110,10 @@ public class Controller {
 
     public void keyPressed(String key){
         //если была нажата клавиша цифра
-        if(key.matches("[0-9]]")){ // \\d   –  цифровой символ
+        if(key.matches("[0-9]")){ // \\d   –  цифровой символ
             calc.append(key);
         } //если была нажата клавиша операции - + * /
         else if (key.matches("[-+*/=]")){ //Диапазон символов или цифр
-            //todo сделать регуляное выражение которое будет отлавилвать *+-/=
             calc.operation(key);
         }
     }
