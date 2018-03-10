@@ -95,6 +95,13 @@ public class Calculator {
     }
 
     private void showValueOnDisplay() {
+        //если пытались делить на 0,
+        //то в equals() sValueOnDisplay == Infinity
+        if (sValueOnDisplay.equals("Infinity")) {
+            display.setText("Error");
+            return;
+        }
+
         if (getNumberOfDigitsAfterDot() == 0) {
             //показать на экране число без точки и нуля
             sValueOnDisplay = sValueOnDisplay.substring(0, sValueOnDisplay.lastIndexOf("."));
@@ -126,9 +133,12 @@ public class Calculator {
             case "*": dResult *= Double.valueOf(sValueOnDisplay);
                 break;
             case "/": dResult /= Double.valueOf(sValueOnDisplay);
+                //если деление на ноль выполняется через переменные,
+                //то исключения нет,
+                //если цифрами то исключение есть
+                //dResult = 10 / 0; //java.lang.ArithmeticException: / by zero
+                //если делить dResult на 0, то dResult = Infinity;
                 break;
-            /*case "=": this.equals();
-                break;*/
             default: dResult = Double.valueOf(sValueOnDisplay);
         }
     }
